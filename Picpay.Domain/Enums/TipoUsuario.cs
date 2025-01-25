@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Picpay.Domain.Entities
+namespace Picpay.Domain.Enums
 {
-    public  class Usuario
+    public enum TipoUsuario : int
     {
-
-
+        LOJISTA = 0,
+        COMUM = 1
     }
 }
