@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Models\" />
+    <Folder Include="Validation\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Picpay.Domain\Picpay.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Domain", "Picpay.Domain\Picpay.Domain.csproj", "{17D3105C-7DE5-49D5-9105-2B24966DBB14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picpay.Domain", "Picpay.Domain\Picpay.Domain.csproj", "{17D3105C-7DE5-49D5-9105-2B24966DBB14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Application", "Picpay.Application\Picpay.Application.csproj", "{C8AF8929-8C20-47F7-BF7E-AF72B26A9EC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picpay.Application", "Picpay.Application\Picpay.Application.csproj", "{C8AF8929-8C20-47F7-BF7E-AF72B26A9EC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.CrossCutting", "Picpay.CrossCutting\Picpay.CrossCutting.csproj", "{CA88BA9D-6F9E-4388-8453-D0E35D39A6DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picpay.CrossCutting", "Picpay.CrossCutting\Picpay.CrossCutting.csproj", "{CA88BA9D-6F9E-4388-8453-D0E35D39A6DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Infrastructure", "Picpay.Infrastructure\Picpay.Infrastructure.csproj", "{5F85ED01-B3E9-49AB-8361-CA3EF7FEEC66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picpay.Infrastructure", "Picpay.Infrastructure\Picpay.Infrastructure.csproj", "{5F85ED01-B3E9-49AB-8361-CA3EF7FEEC66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.BackEnd", "Picpay.BackEnd\Picpay.BackEnd.csproj", "{FC1A82C6-987D-42CE-9176-45AA7FFB128D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picpay-simplificado.http", "Picpay.BackEnd\picpay-simplificado.http.csproj", "{FC1A82C6-987D-42CE-9176-45AA7FFB128D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

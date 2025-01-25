@@ -8,7 +8,13 @@
 
   <ItemGroup>
     <Folder Include="Context\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="EntitiesConfiguration\" />
     <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Picpay.Domain\Picpay.Domain.csproj" />
   </ItemGroup>
 
 </Project>
