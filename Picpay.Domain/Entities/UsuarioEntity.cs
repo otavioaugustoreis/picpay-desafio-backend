@@ -8,26 +8,31 @@ using System.Threading.Tasks;
 
 namespace Picpay.Domain.Entities
 {
-    public abstract class Usuario
+    public  class UsuarioEntity : BaseEntity
     {
-        protected Usuario()
+        public UsuarioEntity()
         {
         }
 
-        protected Usuario(string pkId, string dsNome, string dsCPF, string dsEmail, string dsSenha)
+        public UsuarioEntity(int pkId, string dsNome, string dsCPF, string dsEmail, string dsSenha)
+            :base(pkId)
         {
-            PkId = pkId;
             DsNome = dsNome;
             DsCPF = dsCPF;
             DsEmail = dsEmail;
             DsSenha = dsSenha;
         }
 
-        public  string  PkId { get; protected  set; }
-        public  string DsNome { get; protected  set; }
+        public List<CarteiraEntity> CarteiraEntities { get; set; } = new();
+        public  string DsNome { get;   set; }
         public  string DsCPF { get; protected set; }
         public  string DsEmail { get; set; }
         public  string DsSenha { get; protected set; }
-        public TipoUsuario? TgTipo { get; set; } = null;
+        public TipoUsuario TgTipo { get; set; } 
+    
+        public void AdicionarCarteira(CarteiraEntity carteiraEntity)
+        {
+            CarteiraEntities.Add(carteiraEntity);   
+        }
     }
 }

@@ -14,7 +14,12 @@ namespace Picpay.Infrastructure.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<CarteiraEntity> builder)
         {
             builder.HasKey(t => t.PkId);
-           
+            builder.Property(p => p.Saldo)
+                    .HasPrecision(10, 2);
+
+            builder.HasOne(u => u.Usuario)
+                .WithMany(e => e.CarteiraEntities)
+                .HasForeignKey(e => e.FkUsuario);  
         }
     }
 }

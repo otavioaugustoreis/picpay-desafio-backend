@@ -15,13 +15,16 @@ namespace Picpay.Infrastructure.Context
         {
         }
 
-        public DbSet<UsuarioComumEntity>? _UsuarioComum { get; set; }
-        public DbSet<LojistaEntity>? _Lojista { get; set; }
+        public DbSet<UsuarioEntity>? _UsuarioComum { get; set; }
         public DbSet<CarteiraEntity>? _Carteira { get; set; }
+
+        public DbSet<TransferenciaEntity>? _Transferencia { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext)
+            .Assembly);
         }
 
 
