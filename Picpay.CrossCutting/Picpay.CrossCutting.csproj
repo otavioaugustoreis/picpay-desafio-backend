@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IoC\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Picpay.Application\Picpay.Application.csproj" />
     <ProjectReference Include="..\Picpay.Domain\Picpay.Domain.csproj" />
     <ProjectReference Include="..\Picpay.Infrastructure\Picpay.Infrastructure.csproj" />
