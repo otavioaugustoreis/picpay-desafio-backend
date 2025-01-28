@@ -13,6 +13,8 @@ namespace Picpay.Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<UsuarioEntity> builder)
         {
+            builder.ToTable("TB_USUARIO");
+
             builder.HasKey(p => p.PkId);
             builder.Property(p => p.DsNome).HasMaxLength(50).IsRequired(false);
             builder.Property(p => p.DsCPF).HasMaxLength(14).IsRequired(false);

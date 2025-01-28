@@ -13,6 +13,7 @@ namespace Picpay.Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<CarteiraEntity> builder)
         {
+            builder.ToTable("TB_CARTEIRA");
             builder.HasKey(t => t.PkId);
             builder.Property(p => p.Saldo)
                     .HasPrecision(10, 2);

@@ -13,6 +13,8 @@ namespace Picpay.Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<TransferenciaEntity> builder)
         {
+            builder.ToTable("TB_TRANSFERENCIA");
+
             builder.HasKey(t => t.PkId);
             builder.Property(p => p.NrValor).HasPrecision(10, 2);
 
