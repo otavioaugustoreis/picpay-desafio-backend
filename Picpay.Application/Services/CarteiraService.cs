@@ -1,4 +1,5 @@
 ﻿using Picpay.Application.Models;
+using Picpay.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Picpay.Application.Services
 {
     public class CarteiraService : ICarteiraService
     {
-        private readonly ICarteiraService _carteiraService;
-
-        public CarteiraService(ICarteiraService carteiraService)
+        private readonly ICarteiraRepository _carteiraRepository;
+            
+        public CarteiraService(ICarteiraRepository carteiraRepository)
         {
-            _carteiraService = carteiraService;
+            _carteiraRepository = carteiraRepository;
         }
 
         public Task Add(TransferenciaModel categoriaDto)

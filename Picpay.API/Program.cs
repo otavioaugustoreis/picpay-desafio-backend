@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Picpay.Application.Mappings;
 using Picpay.CrossCutting.IoC;
@@ -38,8 +40,19 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
 });
 
+string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDataBase(builder.Configuration);
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(mySqlConnection, sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure();
+        sqlOptions.MigrationsAssembly("Picpay.Infrastructure");
+    });
+});
+
+
+//builder.Services.AddDataBase(builder.Configuration);
 builder.Services.AddCofigurationJson();
 builder.Services.AddDIPScoppedClasse();
 builder.Services.AddValidator();

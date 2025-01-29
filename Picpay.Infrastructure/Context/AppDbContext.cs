@@ -26,7 +26,5 @@ namespace Picpay.Infrastructure.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext)
             .Assembly);
         }
-
-
     }
 }
