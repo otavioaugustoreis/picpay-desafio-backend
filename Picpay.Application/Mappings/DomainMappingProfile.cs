@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace Picpay.Application.Mappings
 {
+    public class DomainMappingProfile : Profile
     {
+        public DomainMappingProfile()
+        {
             CreateMap<UsuarioEntity, UsuarioModel>().ReverseMap();
             CreateMap<TransferenciaEntity, TransferenciaModel>().ReverseMap();
-            CreateMap<CarteiraEntity, CarteiraModel>().ReverseMap();
-
         }
     }
 }

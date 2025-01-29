@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Picpay.Application.Validation
 {
-    public class UsuarioValidator : AbstractValidator<UsuarioModel>
+    public class UsuarioValidaton : AbstractValidator<UsuarioModel>
     {
-        public UsuarioValidator()
+        public UsuarioValidaton()
         {
             RuleFor(x => x.DsNome)
                 .NotEmpty()

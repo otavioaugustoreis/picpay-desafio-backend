@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace Picpay.Application.Validation
 {
+    public class TransferenciaValidator : AbstractValidator<TransferenciaModel>
     {
+        public TransferenciaValidator()
+        {
             RuleFor(x => x.NrValor)
-                     .NotEmpty()
-                     .WithName("idPagador");
+                 .NotEmpty()
+                 .WithName("idPagador");
         }
     }
 }

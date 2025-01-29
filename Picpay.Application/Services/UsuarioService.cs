@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Picpay.Application.Services
 {
-    public class UsuarioServire : IUsuarioService
+    public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository usuarioRepository;
 
-        public UsuarioServire(IUsuarioRepository usuarioService)
+        public UsuarioService(IUsuarioRepository usuarioService)
         {
             this.usuarioRepository = usuarioService;
         }
