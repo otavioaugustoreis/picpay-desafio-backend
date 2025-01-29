@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picpay.CrossCutting", "Picp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picpay.Infrastructure", "Picpay.Infrastructure\Picpay.Infrastructure.csproj", "{5F85ED01-B3E9-49AB-8361-CA3EF7FEEC66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picpay-simplificado.http", "Picpay.BackEnd\picpay-simplificado.http.csproj", "{FC1A82C6-987D-42CE-9176-45AA7FFB128D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.API", "Picpay.API\Picpay.API.csproj", "{BCDA0592-D90C-4679-9A35-35A2CAD22745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{5F85ED01-B3E9-49AB-8361-CA3EF7FEEC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F85ED01-B3E9-49AB-8361-CA3EF7FEEC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F85ED01-B3E9-49AB-8361-CA3EF7FEEC66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC1A82C6-987D-42CE-9176-45AA7FFB128D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC1A82C6-987D-42CE-9176-45AA7FFB128D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC1A82C6-987D-42CE-9176-45AA7FFB128D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC1A82C6-987D-42CE-9176-45AA7FFB128D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDA0592-D90C-4679-9A35-35A2CAD22745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDA0592-D90C-4679-9A35-35A2CAD22745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDA0592-D90C-4679-9A35-35A2CAD22745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDA0592-D90C-4679-9A35-35A2CAD22745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

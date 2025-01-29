@@ -8,7 +8,6 @@ namespace Picpay.Application.Models
 {
     public  class TransferenciaModel
     {
- 
         public double NrValor { get; set; }
         public int FkCarteira { get; set; }
     }
