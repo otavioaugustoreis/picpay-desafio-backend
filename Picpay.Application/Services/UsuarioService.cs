@@ -1,5 +1,7 @@
-﻿using Picpay.Application.Interfaces;
+﻿using AutoMapper;
+using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
+using Picpay.Domain.Entities;
 using Picpay.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,34 +14,44 @@ namespace Picpay.Application.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository usuarioRepository;
-
-        public UsuarioService(IUsuarioRepository usuarioService)
+        private readonly IMapper mapper;
+        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
         {
-            this.usuarioRepository = usuarioService;
+            this.usuarioRepository = usuarioRepository;
+            this.mapper = mapper;
         }
 
-        public Task Add(UsuarioModel categoriaDto)
+        public async Task Add(UsuarioModel usuarioModel)
         {
-            throw new NotImplementedException();
+            var usuario = mapper.Map<UsuarioEntity>(usuarioModel);
+
+            await usuarioRepository.CreateAsync(usuario);
+            usuarioRepository.Commit();
         }
 
-        public Task<UsuarioModel> GetById(int? id)
+        public async Task<UsuarioModel> GetById(int? id)
         {
-            throw new NotImplementedException();
+            var usuario = await usuarioRepository.GetByIdAsync(id);
+
+            return mapper.Map<UsuarioModel>(usuario);
         }
 
-        public Task<IEnumerable<UsuarioModel>> GetUsuarios()
+        public async  Task<IEnumerable<UsuarioModel>> GetUsuarios()
         {
-            throw new NotImplementedException();
-            //return usuarioRepository
+            var listaUsuarios = await usuarioRepository.GetAsync();
+
+            return mapper.Map<IEnumerable<UsuarioModel>>(listaUsuarios);
         }
 
-        public Task Remove(int? id)
+        public async  Task Remove(int? id)
         {
-            throw new NotImplementedException();
+            var usuario = await usuarioRepository.GetByIdAsync(id);
+
+            usuarioRepository.RemoveAsync(usuario);
+            usuarioRepository.Commit();
         }
 
-        public Task Update(UsuarioModel categoriaDto)
+        public Task Update(UsuarioModel usuarioModel)
         {
             throw new NotImplementedException();
         }

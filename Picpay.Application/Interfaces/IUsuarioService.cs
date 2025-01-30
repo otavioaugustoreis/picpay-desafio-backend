@@ -11,8 +11,8 @@ namespace Picpay.Application.Interfaces
     {
         Task<IEnumerable<UsuarioModel>> GetUsuarios();
         Task<UsuarioModel> GetById(int? id);
-        Task Add(UsuarioModel categoriaDto);
-        Task Update(UsuarioModel categoriaDto);
+        Task Add(UsuarioModel usuarioModel);
+        Task Update(UsuarioModel usuarioModel);
         Task Remove(int? id);
     }
 }

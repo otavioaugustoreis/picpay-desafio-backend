@@ -34,10 +34,10 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 
-    //Retorna o assembly Retorna o nome do assembly e Name retorna o nome como uma string
-    var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    //Adiciona os comentários XML ao swagger usando InxludeXmlComments
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+    ////Retorna o assembly Retorna o nome do assembly e Name retorna o nome como uma string
+    //var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    ////Adiciona os comentários XML ao swagger usando InxludeXmlComments
+    //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
 });
 
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
