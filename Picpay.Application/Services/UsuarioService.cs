@@ -15,17 +15,21 @@ namespace Picpay.Application.Services
     {
         private readonly IUsuarioRepository usuarioRepository;
         private readonly IMapper mapper;
-        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
+        private readonly ICarteiraRepository carteiraRepository;
+        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper, ICarteiraRepository carteiraRepository)
         {
             this.usuarioRepository = usuarioRepository;
             this.mapper = mapper;
+            this.carteiraRepository = carteiraRepository;
         }
 
         public async Task Add(UsuarioModel usuarioModel)
         {
             var usuario = mapper.Map<UsuarioEntity>(usuarioModel);
-
+            
             await usuarioRepository.CreateAsync(usuario);
+            await carteiraRepository.CreateAsync(new CarteiraEntity(usuarioModel.Saldo, usuario));
+
             usuarioRepository.Commit();
         }
 

@@ -19,16 +19,30 @@ namespace Picpay.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UsuarioModel categoriaModel)
         {
-            return Ok("teste");
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                await usuarioService.Add(categoriaModel);
+
+                return new CreatedAtRouteResult("Get", categoriaModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpGet]
+        [HttpGet(Name ="Get")]
         public async Task<ActionResult<IEnumerable<UsuarioModel>>> Get()
         {
             try
             {
-                var categorias = await usuarioService.GetUsuarios();
-                return Ok("teste");
+                var usuarios = await usuarioService.GetUsuarios();
+                return Ok(usuarios);
             }
             catch
             {

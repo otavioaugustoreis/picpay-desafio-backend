@@ -12,8 +12,7 @@ namespace Picpay.Domain.Entities
         public CarteiraEntity()
         { }
 
-        public CarteiraEntity(int pkId, double saldo, UsuarioEntity? usuario)
-            : base(pkId)
+        public CarteiraEntity( double saldo, UsuarioEntity? usuario)
         {
             Saldo = saldo;
             Usuario = usuario;

@@ -14,6 +14,6 @@ namespace Picpay.Application.Models
         public string DsCpf { get; set; }
         public string DsEmail { get; set; }
         public string DsSenha { get; set; }
-
+        public double Saldo { get; set; }
     }
 }
