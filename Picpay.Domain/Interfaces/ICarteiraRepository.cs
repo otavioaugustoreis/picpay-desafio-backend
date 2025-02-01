@@ -14,6 +14,7 @@ namespace Picpay.Domain.Interfaces
         Task<CarteiraEntity> CreateAsync(CarteiraEntity entity);
         Task<CarteiraEntity> UpdateAsync(CarteiraEntity entity);
         Task<CarteiraEntity> RemoveAsync(CarteiraEntity entity);
+        Task<CarteiraEntity> GetUsuarioPorCarteira(int id);
         void Commit();
     }
 }

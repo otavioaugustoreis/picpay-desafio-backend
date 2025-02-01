@@ -54,5 +54,14 @@ namespace Picpay.Infrastructure.Repositories
         {
             dbContext.SaveChanges();
         }
-    }
+
+        public async  Task<CarteiraEntity> GetUsuarioPorCarteira(int id )
+        {
+            return await dbContext
+                        ._Carteira
+                        .Where(fk => fk.FkUsuario == id)
+                        .FirstAsync();
+
+        }
 }
+    }

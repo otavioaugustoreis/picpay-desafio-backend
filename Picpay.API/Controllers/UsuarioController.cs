@@ -27,7 +27,6 @@ namespace Picpay.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-
                 var usuario = await usuarioService.Add(usuarioModel);
 
                 if (usuario is null)
@@ -65,7 +64,6 @@ namespace Picpay.API.Controllers
             var usuarios = await usuarioService.GetById(id);
             return Ok(usuarios);
         }
-
 
     }
 }

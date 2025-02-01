@@ -11,6 +11,6 @@ namespace Picpay.Application.Interfaces
     {
         Task<IEnumerable<TransferenciaModel>> GetTransferencias();
         Task<TransferenciaModel> GetById(int? id);
-        Task Add(TransferenciaModel categoriaDto);
+        Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto);
     }
 }

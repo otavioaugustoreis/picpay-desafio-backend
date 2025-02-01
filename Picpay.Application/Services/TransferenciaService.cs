@@ -1,5 +1,6 @@
 ﻿using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
+using Picpay.Domain.Enums;
 using Picpay.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,34 @@ namespace Picpay.Application.Services
     public class TransferenciaService : ITransferenciaService
     {
         private readonly ITransferenciaRepository transferenciaRepository;
-
-        public TransferenciaService(ITransferenciaRepository transferenciaRepository)
+        private readonly ICarteiraRepository carteiraRepository;
+        private readonly IUsuarioRepository usuarioRepository;
+        public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository)
         {
             this.transferenciaRepository = transferenciaRepository;
+            this.carteiraRepository = carteiraRepository;
+            this.usuarioRepository = usuarioRepository;
         }
 
-        public Task Add(TransferenciaModel categoriaDto)
+        public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto)
         {
-            throw new NotImplementedException();
+            var usuario = await usuarioRepository.GetByIdAsync(transferenciaDto.FkDevedor);
+
+            if(usuario.TgTipo == TipoUsuario.LOJISTA)
+            {
+                return null;
+            }
+
+            var carteiraDevedor = await carteiraRepository.GetUsuarioPorCarteira(transferenciaDto.FkDevedor);
+
+            var carteiraRebidor = await carteiraRepository.GetUsuarioPorCarteira(transferenciaDto.FkRecebidor);
+
+            if (carteiraRebidor.Saldo <= 0) 
+            {
+                return null;
+            }
+
+            return transferenciaDto;
         }
 
         public Task<TransferenciaModel> GetById(int? id)
