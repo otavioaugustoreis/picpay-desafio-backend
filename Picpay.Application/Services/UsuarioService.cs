@@ -2,6 +2,7 @@
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
 using Picpay.Domain.Entities;
+using Picpay.Domain.Enums;
 using Picpay.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,27 @@ namespace Picpay.Application.Services
             this.carteiraRepository = carteiraRepository;
         }
 
-        public async Task Add(UsuarioModel usuarioModel)
+        public async Task<UsuarioModel> Add(UsuarioModel usuarioModel)
         {
             var usuario = mapper.Map<UsuarioEntity>(usuarioModel);
+
+            IEnumerable<UsuarioEntity> usuarioRepetido = await usuarioRepository.GetAsync();
+
+            foreach (var usuarios in usuarioRepetido)
+            {
+                if(usuario.DsEmail.Trim().ToLower() == usuarios.DsEmail.Trim().ToLower() 
+                || usuario.DsCPF.Trim().ToLower()   == usuarios.DsEmail.Trim().ToLower())
+                {
+                    return null;
+                }
+            }
             
             await usuarioRepository.CreateAsync(usuario);
             await carteiraRepository.CreateAsync(new CarteiraEntity(usuarioModel.Saldo, usuario));
 
             usuarioRepository.Commit();
+
+            return usuarioModel;
         }
 
         public async Task<UsuarioModel> GetById(int? id)
@@ -47,9 +61,14 @@ namespace Picpay.Application.Services
             return mapper.Map<IEnumerable<UsuarioModel>>(listaUsuarios);
         }
 
-        public async  Task Remove(int? id)
+        public async Task Remove(int? id)
         {
             var usuario = await usuarioRepository.GetByIdAsync(id);
+            
+            if(usuario is null)
+            {
+                return; 
+            }
 
             usuarioRepository.RemoveAsync(usuario);
             usuarioRepository.Commit();

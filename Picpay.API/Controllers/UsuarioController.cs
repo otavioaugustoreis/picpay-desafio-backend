@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
+using System.Security.Cryptography;
 
 namespace Picpay.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace Picpay.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UsuarioModel categoriaModel)
+        public async Task<ActionResult> Post([FromBody] UsuarioModel usuarioModel)
         {
             try
             {
@@ -26,9 +27,15 @@ namespace Picpay.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                await usuarioService.Add(categoriaModel);
 
-                return new CreatedAtRouteResult("Get", categoriaModel);
+                var usuario = await usuarioService.Add(usuarioModel);
+
+                if (usuario is null)
+                {
+                    return BadRequest("Este E-mail/CPF já existe");
+                }
+
+                return new CreatedAtRouteResult("Get", usuarioModel);
             }
             catch (Exception ex)
             {
@@ -36,7 +43,7 @@ namespace Picpay.API.Controllers
             }
         }
 
-        [HttpGet(Name ="Get")]
+        [HttpGet(Name = "Get")]
         public async Task<ActionResult<IEnumerable<UsuarioModel>>> Get()
         {
             try
@@ -44,10 +51,21 @@ namespace Picpay.API.Controllers
                 var usuarios = await usuarioService.GetUsuarios();
                 return Ok(usuarios);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                {
+                    throw new Exception(ex.Message);
+                }
             }
         }
+
+        [HttpGet("/{id:int}")]
+        public async Task<ActionResult<UsuarioModel>> GetId(int id)
+        {
+            var usuarios = await usuarioService.GetById(id);
+            return Ok(usuarios);
+        }
+
+
     }
 }
