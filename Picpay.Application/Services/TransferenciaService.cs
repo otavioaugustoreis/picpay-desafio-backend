@@ -22,6 +22,7 @@ namespace Picpay.Application.Services
             this.usuarioRepository = usuarioRepository;
         }
 
+        //Rever a logica e adicionar o HttpClient
         public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto)
         {
             var usuario = await usuarioRepository.GetByIdAsync(transferenciaDto.FkDevedor);
