@@ -59,7 +59,6 @@ builder.Services.AddHttpClient(httpClientName, client =>
 {
     client.BaseAddress = new Uri(baseAddress);
     client.DefaultRequestHeaders.UserAgent.ParseAdd("dotnet-docs");
-
 });
 
 var app = builder.Build();

@@ -15,13 +15,12 @@ namespace Picpay.Application.Services
         private readonly ITransferenciaRepository transferenciaRepository;
         private readonly ICarteiraRepository carteiraRepository;
         private readonly IUsuarioRepository usuarioRepository;
-        public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository)
-        {
-            this.transferenciaRepository = transferenciaRepository;
-            this.carteiraRepository = carteiraRepository;
-            this.usuarioRepository = usuarioRepository;
-        }
-
+        
+        public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository) =>
+            (transferenciaRepository, carteiraRepository, usuarioRepository) = 
+            (this.transferenciaRepository! ,this.carteiraRepository! ,this.usuarioRepository! );
+        
+           
         public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto)
         {
             var usuario = await usuarioRepository.GetByIdAsync(transferenciaDto.FkDevedor);
