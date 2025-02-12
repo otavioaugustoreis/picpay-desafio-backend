@@ -52,5 +52,7 @@ namespace Picpay.Application.Services
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }
