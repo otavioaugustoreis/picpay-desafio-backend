@@ -15,6 +15,7 @@ namespace Picpay.Application.Services
         private readonly ITransferenciaRepository transferenciaRepository;
         private readonly ICarteiraRepository carteiraRepository;
         private readonly IUsuarioRepository usuarioRepository;
+<<<<<<< HEAD
         public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository)
         {
             this.transferenciaRepository = transferenciaRepository;
@@ -23,6 +24,14 @@ namespace Picpay.Application.Services
         }
 
         //Rever a logica e adicionar o HttpClient
+=======
+        
+        public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository) =>
+            (transferenciaRepository, carteiraRepository, usuarioRepository) = 
+            (this.transferenciaRepository! ,this.carteiraRepository! ,this.usuarioRepository! );
+        
+           
+>>>>>>> 817d3e97aa9fa150e488c660a6432a073db6c535
         public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto)
         {
             var usuario = await usuarioRepository.GetByIdAsync(transferenciaDto.FkDevedor);
@@ -53,5 +62,7 @@ namespace Picpay.Application.Services
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

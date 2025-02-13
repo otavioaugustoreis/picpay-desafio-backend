@@ -18,9 +18,9 @@ builder.Services.AddSwaggerGen(c =>
     //Documentação do Swagger
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "EcommerceBackEnd",
+        Title = "DesafioPicPay",
         Version = "v1",
-        Description = "E-commerce genérico",
+        Description = " Desafio PicPay",
         Contact = new OpenApiContact
         {
             Name = "Otavio",
@@ -33,11 +33,6 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri("https://www.linkedin.com/in/otavio-augusto-a0a71b225/")
         }
     });
-
-    ////Retorna o assembly Retorna o nome do assembly e Name retorna o nome como uma string
-    //var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    ////Adiciona os comentários XML ao swagger usando InxludeXmlComments
-    //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
 });
 
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -51,12 +46,20 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     });
 });
 
-
 //builder.Services.AddDataBase(builder.Configuration);
 builder.Services.AddCofigurationJson();
 builder.Services.AddDIPScoppedClasse();
 builder.Services.AddValidator();
 builder.Services.AddAutoMapper(typeof(DomainMappingProfile));
+
+string httpClientName = builder.Configuration["HttpClient:TodoHttpClientName"];
+string baseAddress = builder.Configuration["HttpClient:BaseAddress"];
+
+builder.Services.AddHttpClient(httpClientName, client =>
+{
+    client.BaseAddress = new Uri(baseAddress);
+    client.DefaultRequestHeaders.UserAgent.ParseAdd("dotnet-docs");
+});
 
 var app = builder.Build();
 
