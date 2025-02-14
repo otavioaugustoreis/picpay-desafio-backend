@@ -14,7 +14,7 @@ namespace Picpay.Application.Validation
         {
             RuleFor(x => x.NrValor)
                  .NotEmpty()
-                 .WithName("idPagador");
+                 .WithName("value");
         }
     }
 }

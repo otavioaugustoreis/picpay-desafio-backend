@@ -15,7 +15,6 @@ namespace Picpay.Application.Validation
 
             if (cpf.Length != 11 || cpf.All(c => c == cpf[0])) return false;
 
-
             int soma = 0;
             for (int i = 0; i < 9; i++)
                 soma += (cpf[i] - '0') * (10 - i);

@@ -14,15 +14,18 @@ namespace Picpay.Domain.Entities
         {
         }
 
-        public TransferenciaEntity(int pkId, int fkPagador, double nrValor) :
+        public TransferenciaEntity(int pkId, int fkPagador, double nrValor, int fkRecebidor) :
             base(pkId)
         {
-            FkCarteira = fkPagador;
+            FkRecebidor = fkRecebidor;
+            FkPagador = fkPagador;
             NrValor = nrValor;
         }
 
         public double  NrValor { get; set; }
-        public int FkCarteira  { get; set; }
+        public int FkPagador { get; set; }
+        public int FkRecebidor { get; set; }
+
         public CarteiraEntity Carteira { get; set; } = new();
     }
 }

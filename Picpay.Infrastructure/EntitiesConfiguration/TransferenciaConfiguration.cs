@@ -20,7 +20,11 @@ namespace Picpay.Infrastructure.EntitiesConfiguration
 
             builder.HasOne(c => c.Carteira)
                 .WithMany(p => p.Transferencias)
-                .HasForeignKey(p => p.FkCarteira);
+                .HasForeignKey(p => p.FkRecebidor);
+
+                builder.HasOne(c => c.Carteira)
+                .WithMany(p => p.Transferencias)
+                .HasForeignKey(p => p.FkPagador);
 
         }
     }
