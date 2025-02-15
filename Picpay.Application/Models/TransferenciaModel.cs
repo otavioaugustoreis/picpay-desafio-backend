@@ -9,7 +9,7 @@ namespace Picpay.Application.Models
     public  class TransferenciaModel
     {
         public double NrValor { get; set; }
+        public int FkPagador { get; set; }
         public int FkRecebidor { get; set; }
-        public int FkDevedor { get; set; }
     }
 }

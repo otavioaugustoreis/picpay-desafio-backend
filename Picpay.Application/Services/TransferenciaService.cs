@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
+using Picpay.Application.Exceptions;
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
 using Picpay.Domain.Entities;
@@ -33,21 +34,21 @@ namespace Picpay.Application.Services
 
             try
             {
-                var usuario = await usuarioRepository.GetByIdAsync(transferenciaDto.FkDevedor);
+                var usuario = await usuarioRepository.GetByIdAsync(transferenciaDto.FkPagador);
 
                 if (usuario.TgTipo == TipoUsuario.LOJISTA)
                 {
-                    return null;
+                     new BusinessException("Lojistas não podem realizar transferências.");
                 }
 
-                var carteiraDevedor = await carteiraRepository.GetUsuarioPorCarteira(transferenciaDto.FkDevedor);
+                var carteiraDevedor = await carteiraRepository.GetUsuarioPorCarteira(transferenciaDto.FkPagador);
 
                 var carteiraRebidor = await carteiraRepository.GetUsuarioPorCarteira(transferenciaDto.FkRecebidor);
 
                 //Fazer isso via Validation, pensa comigo, faz mais sentido
                 if (carteiraRebidor.Saldo <= 0)
                 {
-                    return null;
+                     new BusinessException("O saldo do recebedor é insuficiente.");
                 }
 
                 await transferenciaRepository.CreateAsync(transferencia);
@@ -57,7 +58,8 @@ namespace Picpay.Application.Services
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new BusinessException($"Erro ao processar a transferência: {e.Message}");
+
             }
         }
 

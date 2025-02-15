@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Picpay.Application.Exceptions;
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
 using Picpay.Domain.Entities;
@@ -27,11 +28,15 @@ namespace Picpay.API.Controllers
 
             try
             {
-
+                return null;
+            }
+            catch (BusinessException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex) 
             {
-                throw new Exception(ex.Message);
+                return StatusCode(500, "Ocorreu um erro interno no servidor.");
             }
 
         }
