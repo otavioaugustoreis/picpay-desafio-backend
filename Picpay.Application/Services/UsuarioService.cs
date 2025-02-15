@@ -41,7 +41,6 @@ namespace Picpay.Application.Services
             
             await usuarioRepository.CreateAsync(usuario);
             await carteiraRepository.CreateAsync(new CarteiraEntity(usuarioModel.Saldo, usuario));
-
             usuarioRepository.Commit();
 
             return usuarioModel;

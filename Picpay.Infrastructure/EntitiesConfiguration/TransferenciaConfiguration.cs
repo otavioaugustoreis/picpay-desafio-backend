@@ -18,14 +18,15 @@ namespace Picpay.Infrastructure.EntitiesConfiguration
             builder.HasKey(t => t.PkId);
             builder.Property(p => p.NrValor).HasPrecision(10, 2);
 
-            builder.HasOne(c => c.Carteira)
-                .WithMany(p => p.Transferencias)
-                .HasForeignKey(p => p.FkRecebidor);
+            builder.HasOne(t => t.Pagador)
+             .WithMany(c => c.TransferenciasComoPagador)
+             .HasForeignKey(t => t.FkPagador)
+             .OnDelete(DeleteBehavior.Restrict); 
 
-                builder.HasOne(c => c.Carteira)
-                .WithMany(p => p.Transferencias)
-                .HasForeignKey(p => p.FkPagador);
-
+            builder.HasOne(t => t.Recebedor)
+                .WithMany(c => c.TransferenciasComoRecebedor)
+                .HasForeignKey(t => t.FkRecebidor)
+                .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }

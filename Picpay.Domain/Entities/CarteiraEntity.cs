@@ -21,11 +21,18 @@ namespace Picpay.Domain.Entities
         public  int  FkUsuario { get; set; }
         public UsuarioEntity? Usuario { get; set; }
 
-        public List<TransferenciaEntity> Transferencias { get; set; } = new();
+        public ICollection<TransferenciaEntity> TransferenciasComoPagador { get; set; }
 
-        public void AdicionarTransferencia(TransferenciaEntity transferencia)
+        public ICollection<TransferenciaEntity> TransferenciasComoRecebedor { get; set; }
+
+        public void AdicionarTransferenciaComoPagador(TransferenciaEntity transferencia)
         {
-            Transferencias.Add(transferencia);
+            TransferenciasComoPagador.Add(transferencia);
+        }
+
+        public void AdicionarTransferenciaComoRecebedor(TransferenciaEntity transferencia)
+        {
+            TransferenciasComoRecebedor.Add(transferencia);
         }
 
     }
