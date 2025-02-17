@@ -45,10 +45,9 @@ namespace Picpay.Application.Services
 
                 var carteiraRebidor = await carteiraRepository.GetUsuarioPorCarteira(transferenciaDto.FkRecebidor);
 
-                //Fazer isso via Validation, pensa comigo, faz mais sentido
-                if (carteiraRebidor.Saldo <= 0)
+                if (carteiraDevedor.Saldo <= 0)
                 {
-                     new BusinessException("O saldo do recebedor é insuficiente.");
+                     new BusinessException("Carteira com saldo insuficiente é insuficiente.");
                 }
 
                 await transferenciaRepository.CreateAsync(transferencia);
