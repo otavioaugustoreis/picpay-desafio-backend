@@ -20,22 +20,32 @@ namespace Picpay.API.Controllers
         [HttpPost]
         public async Task<ActionResult<TransferenciaModel>> Add([FromBody] TransferenciaModel transferenciaModel)
         {
-           
             try
             {
-                return null;
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+               await transferenciaService.Add(transferenciaModel);
+
+                return Created($"api/transferencia/{transferenciaModel}", transferenciaModel);
             }
             catch (BusinessException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return StatusCode(500, "Ocorreu um erro interno no servidor.");
             }
 
         }
 
-
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TransferenciaModel>>> GetAll()
+        {
+            return Ok(await transferenciaService.GetTransferencias());
+        }
     }
 }

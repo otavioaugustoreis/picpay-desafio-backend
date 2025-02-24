@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Picpay.Application.Exceptions;
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
 using Picpay.Domain.Entities;
@@ -29,13 +30,17 @@ namespace Picpay.Application.Services
             var usuario = mapper.Map<UsuarioEntity>(usuarioModel);
 
             IEnumerable<UsuarioEntity> usuarioRepetido = await usuarioRepository.GetAsync();
+            
 
             foreach (var usuarios in usuarioRepetido)
             {
-                if(usuario.DsEmail.Trim().ToLower() == usuarios.DsEmail.Trim().ToLower() 
-                || usuario.DsCPF.Trim().ToLower()   == usuarios.DsEmail.Trim().ToLower())
+                if(usuario.DsEmail.Trim().ToLower() == usuarios.DsEmail.Trim().ToLower())
                 {
-                    return null;
+                     new UsuarioException("Este e-mail já está cadastrado");
+                }
+                if (usuario.DsCPF.Trim().ToLower() == usuarios.DsCPF.Trim().ToLower())
+                {
+                    new UsuarioException("Este cpf já existe");
                 }
             }
             

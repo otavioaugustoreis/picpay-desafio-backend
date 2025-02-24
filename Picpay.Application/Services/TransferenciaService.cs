@@ -45,11 +45,15 @@ namespace Picpay.Application.Services
                 
             try
             {
-                if (message.IsSuccessStatusCode)
+
+                if (!message.IsSuccessStatusCode)
                 {
-                    var messageJson = JsonSerializer.Serialize(message);
-                     authorize = JsonSerializer.Deserialize<AutorizadorResponse>(messageJson);
+                    throw new BusinessException("Erro ao consultar o serviço autorizador.");
                 }
+
+                   var messageJson = JsonSerializer.Serialize(message);
+                   authorize = JsonSerializer.Deserialize<AutorizadorResponse>(messageJson);
+                
 
                 var usuario = await usuarioRepository.GetByIdAsync(transferencia.FkPagador);
 
@@ -59,8 +63,6 @@ namespace Picpay.Application.Services
                 }
 
                 var carteiraDevedor = await carteiraRepository.GetUsuarioPorCarteira(transferencia.FkPagador);
-
-                var carteiraRebidor = await carteiraRepository.GetUsuarioPorCarteira(transferencia.FkRecebidor);
 
                 if (carteiraDevedor.Saldo <= 0)
                 {
@@ -84,16 +86,15 @@ namespace Picpay.Application.Services
             }
         }
 
-        public Task<TransferenciaModel> GetById(int? id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<IEnumerable<TransferenciaModel>> GetTransferencias()
+        public async Task<IEnumerable<TransferenciaModel>> GetTransferencias()
         {
-            throw new NotImplementedException();
-        }
+            var transferencias = await transferenciaRepository.GetAsync();
 
+            var transferenciaModel = mapper.Map<IEnumerable<TransferenciaModel>>(transferencias);
+
+            return transferenciaModel;
+        }
 
     }
 }

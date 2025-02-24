@@ -15,6 +15,14 @@ namespace Picpay.Application.Validation
             RuleFor(x => x.NrValor)
                  .NotEmpty()
                  .WithName("value");
+
+            RuleFor(x => x.FkRecebidor)
+                .NotEmpty()
+                .WithName("payee");
+
+            RuleFor(x => x.FkPagador)
+                .NotEmpty()
+                .WithName("payer");
         }
     }
 }

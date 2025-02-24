@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Picpay.Application.Exceptions;
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
 using System.Security.Cryptography;
@@ -29,21 +30,19 @@ namespace Picpay.API.Controllers
 
                 var usuario = await usuarioService.Add(usuarioModel);
 
-                if (usuario is null)
-                {
-                    return BadRequest("Este E-mail/CPF já existe");
-                }
-
-                return new CreatedAtRouteResult("Get", usuarioModel);
+                return new CreatedAtRouteResult("GetAll", usuarioModel);
             }
-            catch (Exception ex)
+            catch (UsuarioException ex)
+            {
+                return BadRequest(ex.Message);
+            }catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
-        [HttpGet(Name = "Get")]
-        public async Task<ActionResult<IEnumerable<UsuarioModel>>> Get()
+        [HttpGet(Name = "GetAll")]
+        public async Task<ActionResult<IEnumerable<UsuarioModel>>> GetAll()
         {
             try
             {
