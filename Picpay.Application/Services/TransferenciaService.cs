@@ -27,9 +27,26 @@ namespace Picpay.Application.Services
         private readonly IMapper mapper;
 
 
-        public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository, IConfiguration configuration, IHttpClientFactory httpClientFactory) =>
-            (transferenciaRepository, carteiraRepository, usuarioRepository, httpClientFactory, configuration) =
-            (this.transferenciaRepository!, this.carteiraRepository!, this.usuarioRepository!, _httpClientFactory, _configuration);
+        //public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository, IConfiguration configuration, IHttpClientFactory httpClientFactory) =>
+        //    (transferenciaRepository, carteiraRepository, usuarioRepository, httpClientFactory, configuration) =
+        //    (this.transferenciaRepository!, this.carteiraRepository!, this.usuarioRepository!, _httpClientFactory, _configuration);
+
+        public TransferenciaService(ITransferenciaRepository transferenciaRepository,
+            ICarteiraRepository carteiraRepository, 
+            IUsuarioRepository usuarioRepository, 
+            IConfiguration configuration, 
+            IHttpClientFactory httpClientFactory,
+            IMapper _mapper)
+        {
+            this.transferenciaRepository = transferenciaRepository;
+            this.carteiraRepository = carteiraRepository;
+            this.usuarioRepository = usuarioRepository;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+            mapper = _mapper;
+        }
+
+
 
 
         public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto)

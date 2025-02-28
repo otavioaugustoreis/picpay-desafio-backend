@@ -11,7 +11,7 @@ namespace Picpay.Application.Models
 {
     public class UsuarioModel
     {
-        public int Id { get; set; }
+        public int PkId { get; set; }
         public string  DsNome { get; set; }
         public string DsCpf   { get; set; }
         public string DsEmail { get; set; }

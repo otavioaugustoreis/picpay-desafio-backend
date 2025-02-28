@@ -1,4 +1,5 @@
 ﻿using Picpay.Application.Models;
+using Picpay.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,7 @@ namespace Picpay.Application.Services
 {
     public interface ICarteiraService 
     {
-        Task<IEnumerable<TransferenciaModel>> GetCarteiras();
-        Task<TransferenciaModel> GetById(int? id);
-        Task Add(TransferenciaModel categoriaDto);
+        Task<IEnumerable<CarteiraModel>> GetAllAsync();
+
     }
 }

@@ -28,7 +28,9 @@ namespace Picpay.Infrastructure.Repositories
 
         public async Task<IEnumerable<CarteiraEntity>> GetAsync()
         {
-            return await dbContext._Carteira.ToListAsync();
+            return await dbContext._Carteira
+                .Include(p => p.Usuario)
+                .ToListAsync();
         }
 
         public async Task<CarteiraEntity> GetByIdAsync(int? id)

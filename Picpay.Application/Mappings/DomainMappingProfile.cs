@@ -15,6 +15,7 @@ namespace Picpay.Application.Mappings
         {
             CreateMap<UsuarioEntity, UsuarioModel>().ReverseMap();
             CreateMap<TransferenciaEntity, TransferenciaModel>().ReverseMap();
+            CreateMap<CarteiraEntity, CarteiraModel>().ReverseMap();
         }
     }
 }

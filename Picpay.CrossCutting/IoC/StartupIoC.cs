@@ -18,6 +18,7 @@ namespace Picpay.CrossCutting.IoC
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITransferenciaRepository, TransferenciaRepository>();
             services.AddScoped<ICarteiraRepository, CarteiraRepository>();
+
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<ITransferenciaService, TransferenciaService>();
             services.AddScoped<ICarteiraService, CarteiraService>();
