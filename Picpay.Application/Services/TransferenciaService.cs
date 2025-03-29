@@ -25,12 +25,14 @@ namespace Picpay.Application.Services
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMapper mapper;
+        private readonly INotificarService notificarService;
 
         public TransferenciaService(ITransferenciaRepository transferenciaRepository,
             ICarteiraRepository carteiraRepository, 
             IUsuarioRepository usuarioRepository, 
             IConfiguration configuration, 
             IHttpClientFactory httpClientFactory,
+            INotificarService notificarService,
             IMapper _mapper)
         {
             this.transferenciaRepository = transferenciaRepository;
@@ -38,6 +40,7 @@ namespace Picpay.Application.Services
             this.usuarioRepository = usuarioRepository;
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            this.notificarService = notificarService;
             mapper = _mapper;
         }
 
@@ -48,7 +51,7 @@ namespace Picpay.Application.Services
 
             var transferencia = mapper.Map<TransferenciaEntity>(transferenciaModel);
 
-            string placeHolder = _configuration["HttpClient:TodoHttpClientName"];
+            string placeHolder = _configuration["HttpClient:Authorize:TodoHttpClientName"];
 
             using HttpClient client = _httpClientFactory.CreateClient(placeHolder ?? "");
 
@@ -89,7 +92,8 @@ namespace Picpay.Application.Services
 
                 await transferenciaRepository.CreateAsync(transferencia);
                 transferenciaRepository.Commit();
-               
+                notificarService.Notificar();
+                
                 return transferenciaModel;
             }
             catch (Exception e)

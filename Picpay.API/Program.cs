@@ -52,12 +52,21 @@ builder.Services.AddDIPScoppedClasse();
 builder.Services.AddValidator();
 builder.Services.AddAutoMapper(typeof(DomainMappingProfile));
 
-string httpClientName = builder.Configuration["HttpClient:TodoHttpClientName"];
-string baseAddress = builder.Configuration["HttpClient:BaseAddress"];
+string httpClientName =  builder.Configuration["HttpClient:Authorize:TodoHttpClientName"];
+string baseAddress    =  builder.Configuration["HttpClient:Authorize:BaseAddress"];
+
+string httpClientEmail = builder.Configuration["HttpClient:Email:TodoHttpClientName"];
+string EmailAddress   =  builder.Configuration["HttpClient:Email:EmailAddress"];
 
 builder.Services.AddHttpClient(httpClientName, client =>
 {
     client.BaseAddress = new Uri(baseAddress);
+    client.DefaultRequestHeaders.UserAgent.ParseAdd("dotnet-docs");
+});
+
+builder.Services.AddHttpClient(httpClientEmail, client =>
+{
+    client.BaseAddress = new Uri(EmailAddress);
     client.DefaultRequestHeaders.UserAgent.ParseAdd("dotnet-docs");
 });
 
