@@ -13,9 +13,10 @@ namespace Picpay.Application.Mappings
     {
         public DomainMappingProfile()
         {
-            CreateMap<UsuarioEntity, UsuarioModel>().ReverseMap();
+            CreateMap<UsuarioEntity, UsuarioModelRequest>().ReverseMap();
             CreateMap<TransferenciaEntity, TransferenciaModel>().ReverseMap();
             CreateMap<CarteiraEntity, CarteiraModel>().ReverseMap();
+            CreateMap<UsuarioEntity, UsuarioModelResponse>().ReverseMap();
         }
     }
 }

@@ -2,7 +2,9 @@
 using Picpay.Application.Exceptions;
 using Picpay.Application.Interfaces;
 using Picpay.Application.Models;
+using Picpay.Application.Services;
 using Picpay.Domain.Entities;
+using Picpay.Domain.Interfaces;
 
 namespace Picpay.API.Controllers
 {
@@ -12,6 +14,8 @@ namespace Picpay.API.Controllers
     public class TransferenciaController : ControllerBase
     {
         private readonly ITransferenciaService transferenciaService;
+        private readonly ICarteiraService carteiraService;
+
         public TransferenciaController(ITransferenciaService transferenciaService)
         {
             this.transferenciaService = transferenciaService;
@@ -28,6 +32,7 @@ namespace Picpay.API.Controllers
                 }
 
                await transferenciaService.Add(transferenciaModel);
+             
 
                 return Created($"api/transferencia/{transferenciaModel}", transferenciaModel);
             }
@@ -37,7 +42,7 @@ namespace Picpay.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocorreu um erro interno no servidor.");
+                return StatusCode(500, ex.Message);
             }
 
         }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Picpay.Application.Validation
 {
-    public class UsuarioValidaton : AbstractValidator<UsuarioModel>
+    public class UsuarioValidaton : AbstractValidator<UsuarioModelRequest>
     {
         public UsuarioValidaton()
         {
@@ -32,7 +32,7 @@ namespace Picpay.Application.Validation
 
             RuleFor(x => x.DsSenha)
                      .NotEmpty()
-                      .MinimumLength(10)
+                      .MinimumLength(5)
                       .MaximumLength(20);
 
         }

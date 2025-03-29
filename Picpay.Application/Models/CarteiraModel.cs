@@ -11,6 +11,6 @@ namespace Picpay.Application.Models
     {
         public int PkId { get; set; }
         public double Saldo { get; set; }
-        public UsuarioModel? Usuario { get; set; }
+        public UsuarioModelResponse? Usuario { get; set; }
     }
 }

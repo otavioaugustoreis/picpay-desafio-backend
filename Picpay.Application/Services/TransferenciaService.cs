@@ -26,11 +26,6 @@ namespace Picpay.Application.Services
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMapper mapper;
 
-
-        //public TransferenciaService(ITransferenciaRepository transferenciaRepository, ICarteiraRepository carteiraRepository, IUsuarioRepository usuarioRepository, IConfiguration configuration, IHttpClientFactory httpClientFactory) =>
-        //    (transferenciaRepository, carteiraRepository, usuarioRepository, httpClientFactory, configuration) =
-        //    (this.transferenciaRepository!, this.carteiraRepository!, this.usuarioRepository!, _httpClientFactory, _configuration);
-
         public TransferenciaService(ITransferenciaRepository transferenciaRepository,
             ICarteiraRepository carteiraRepository, 
             IUsuarioRepository usuarioRepository, 
@@ -47,54 +42,55 @@ namespace Picpay.Application.Services
         }
 
 
-
-
-        public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto)
+        public async Task<TransferenciaModel> Add(TransferenciaModel transferenciaModel)
         {
             AutorizadorResponse authorize = null;
 
-            var transferencia = mapper.Map<TransferenciaEntity>(transferenciaDto);
+            var transferencia = mapper.Map<TransferenciaEntity>(transferenciaModel);
 
-            string placeHolder = _configuration["TodoHttpClientName"];
+            string placeHolder = _configuration["HttpClient:TodoHttpClientName"];
+
             using HttpClient client = _httpClientFactory.CreateClient(placeHolder ?? "");
 
             HttpResponseMessage message = await client.GetAsync("");
-                
+
+            var usuario = await usuarioRepository.GetByIdAsync(transferencia.FkPagador);
+
+            var carteiraDevedor = await carteiraRepository.GetUsuarioPorCarteira(transferencia.FkPagador);
+            var carteiraRecebidor = await carteiraRepository.GetUsuarioPorCarteira(transferencia.FkRecebidor);
+
+
             try
             {
+                if (usuario.TgTipo == TipoUsuario.LOJISTA)
+                {
+                    throw new BusinessException("Lojistas não podem realizar transferências.");
+                }
+
+                await Transferir(carteiraDevedor, carteiraRecebidor, transferenciaModel.NrValor);
+
 
                 if (!message.IsSuccessStatusCode)
                 {
+                    await Rollback(carteiraDevedor, carteiraRecebidor, transferenciaModel.NrValor);
                     throw new BusinessException("Erro ao consultar o serviço autorizador.");
                 }
 
-                   var messageJson = JsonSerializer.Serialize(message);
-                   authorize = JsonSerializer.Deserialize<AutorizadorResponse>(messageJson);
+                var contentString = await message.Content.ReadAsStringAsync();
+
+                authorize = JsonSerializer.Deserialize<AutorizadorResponse>(contentString);
                 
 
-                var usuario = await usuarioRepository.GetByIdAsync(transferencia.FkPagador);
-
-                if (usuario.TgTipo == TipoUsuario.LOJISTA)
+                if (authorize == null || !authorize.data.authorization)
                 {
-                     new BusinessException("Lojistas não podem realizar transferências.");
-                }
-
-                var carteiraDevedor = await carteiraRepository.GetUsuarioPorCarteira(transferencia.FkPagador);
-
-                if (carteiraDevedor.Saldo <= 0)
-                {
-                     new BusinessException("Carteira com saldo insuficiente é insuficiente.");
-                }
-
-                if (!authorize.Data.Authorization)
-                {
-                    new BusinessException("Transferência não autorizada.");
+                    await Rollback(carteiraDevedor, carteiraRecebidor, transferenciaModel.NrValor);
+                    throw new BusinessException("Transferência não autorizada.");
                 }
 
                 await transferenciaRepository.CreateAsync(transferencia);
                 transferenciaRepository.Commit();
                
-                return transferenciaDto;
+                return transferenciaModel;
             }
             catch (Exception e)
             {
@@ -111,6 +107,27 @@ namespace Picpay.Application.Services
             var transferenciaModel = mapper.Map<IEnumerable<TransferenciaModel>>(transferencias);
 
             return transferenciaModel;
+        }
+
+      
+
+        public async Task Transferir(CarteiraEntity carteiraDevedor, CarteiraEntity carteiraRecebidor, double valor)
+        {
+
+            if (carteiraDevedor.Saldo <= 0)
+            {
+                new BusinessException("Carteira com saldo insuficiente.");
+            }
+
+            
+        }
+
+        private async Task Rollback(CarteiraEntity carteiraDevedor, CarteiraEntity carteiraRecebidor, double valor)
+        {
+            carteiraDevedor.Saldo += valor;
+            carteiraRecebidor.Saldo -= valor;
+
+            carteiraRepository.Commit();
         }
 
     }

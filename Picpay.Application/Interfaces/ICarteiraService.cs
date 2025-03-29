@@ -11,6 +11,5 @@ namespace Picpay.Application.Services
     public interface ICarteiraService 
     {
         Task<IEnumerable<CarteiraModel>> GetAllAsync();
-
     }
 }

@@ -25,7 +25,7 @@ namespace Picpay.Application.Services
             this.carteiraRepository = carteiraRepository;
         }
 
-        public async Task<UsuarioModel> Add(UsuarioModel usuarioModel)
+        public async Task<UsuarioModelRequest> Add(UsuarioModelRequest usuarioModel)
         {
             var usuario = mapper.Map<UsuarioEntity>(usuarioModel);
 
@@ -36,11 +36,11 @@ namespace Picpay.Application.Services
             {
                 if(usuario.DsEmail.Trim().ToLower() == usuarios.DsEmail.Trim().ToLower())
                 {
-                     new UsuarioException("Este e-mail já está cadastrado");
+                     throw new UsuarioException("Este e-mail já está cadastrado");
                 }
                 if (usuario.DsCPF.Trim().ToLower() == usuarios.DsCPF.Trim().ToLower())
                 {
-                    new UsuarioException("Este cpf já existe");
+                    throw new UsuarioException("Este cpf já existe");
                 }
             }
             
@@ -51,18 +51,18 @@ namespace Picpay.Application.Services
             return usuarioModel;
         }
 
-        public async Task<UsuarioModel> GetById(int? id)
+        public async Task<UsuarioModelResponse> GetById(int? id)
         {
             var usuario = await usuarioRepository.GetByIdAsync(id);
 
-            return mapper.Map<UsuarioModel>(usuario);
+            return mapper.Map<UsuarioModelResponse>(usuario);
         }
 
-        public async  Task<IEnumerable<UsuarioModel>> GetUsuarios()
+        public async  Task<IEnumerable<UsuarioModelResponse>> GetUsuarios()
         {
             var listaUsuarios = await usuarioRepository.GetAsync();
 
-            return mapper.Map<IEnumerable<UsuarioModel>>(listaUsuarios);
+            return mapper.Map<IEnumerable<UsuarioModelResponse>>(listaUsuarios);
         }
 
         public async Task Remove(int? id)
@@ -78,9 +78,11 @@ namespace Picpay.Application.Services
             usuarioRepository.Commit();
         }
 
-        public Task Update(UsuarioModel usuarioModel)
+        public Task Update(UsuarioModelRequest usuarioModel)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

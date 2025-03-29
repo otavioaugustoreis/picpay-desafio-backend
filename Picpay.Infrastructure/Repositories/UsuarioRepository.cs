@@ -21,7 +21,7 @@ namespace Picpay.Infrastructure.Repositories
         }
         public async  Task<UsuarioEntity> CreateAsync(UsuarioEntity entity)
         {
-            dbContext.Add(entity);
+              dbContext.Add(entity);
             return entity;
         }
 

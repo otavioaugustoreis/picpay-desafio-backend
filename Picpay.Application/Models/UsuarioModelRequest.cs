@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Picpay.Application.Models
 {
-    public class UsuarioModel
+    public class UsuarioModelRequest
     {
         public int PkId { get; set; }
         public string  DsNome { get; set; }
@@ -17,6 +17,6 @@ namespace Picpay.Application.Models
         public string DsEmail { get; set; }
         public string DsSenha { get; set; }
         public double Saldo   { get; set; }
-        public TipoUsuario TipoConta  { get; set; }
+        public TipoUsuario TgTipo  { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Picpay.Application.Models;
+﻿using Microsoft.Extensions.Options;
+using Picpay.Application.Models;
+using Picpay.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,7 @@ namespace Picpay.Application.Interfaces
     {
         Task<IEnumerable<TransferenciaModel>> GetTransferencias();
         Task<TransferenciaModel> Add(TransferenciaModel transferenciaDto);
+
+        Task Transferir(CarteiraEntity carteiraDevedor, CarteiraEntity carteiraRecebidor, double valor);
     }
 }

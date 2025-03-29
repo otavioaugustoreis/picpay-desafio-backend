@@ -8,7 +8,7 @@ namespace Picpay.Domain.Entities
 {
     public  class AutorizadorResponse
     {
-        public string Status { get; set; }
-        public AuthorizationData Data { get; set; }
+        public string status { get; set; }
+        public AuthorizationData data { get; set; }
     }
 }

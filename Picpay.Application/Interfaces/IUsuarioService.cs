@@ -9,10 +9,10 @@ namespace Picpay.Application.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<IEnumerable<UsuarioModel>> GetUsuarios();
-        Task<UsuarioModel> GetById(int? id);
-        Task<UsuarioModel> Add(UsuarioModel usuarioModel);
-        Task Update(UsuarioModel usuarioModel);
+        Task<IEnumerable<UsuarioModelResponse>> GetUsuarios();
+        Task<UsuarioModelResponse> GetById(int? id);
+        Task<UsuarioModelRequest> Add(UsuarioModelRequest usuarioModel);
+        Task Update(UsuarioModelRequest usuarioModel);
         Task Remove(int? id);
     }
 }

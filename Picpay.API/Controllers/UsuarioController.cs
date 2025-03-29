@@ -19,7 +19,7 @@ namespace Picpay.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UsuarioModel usuarioModel)
+        public async Task<ActionResult> Post([FromBody] UsuarioModelRequest usuarioModel)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Picpay.API.Controllers
         }
 
         [HttpGet(Name = "GetAll")]
-        public async Task<ActionResult<IEnumerable<UsuarioModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<UsuarioModelResponse>>> GetAll()
         {
             try
             {
@@ -51,14 +51,12 @@ namespace Picpay.API.Controllers
             }
             catch (Exception ex)
             {
-                {
                     throw new Exception(ex.Message);
-                }
             }
         }
 
         [HttpGet("/{id:int}")]
-        public async Task<ActionResult<UsuarioModel>> GetId(int id)
+        public async Task<ActionResult<UsuarioModelResponse>> GetId(int id)
         {
             var usuarios = await usuarioService.GetById(id);
             return Ok(usuarios);

@@ -8,6 +8,6 @@ namespace Picpay.Domain.Entities
 {
     public  class AuthorizationData
     {
-        public bool Authorization { get; set; }
+        public bool authorization { get; set; }
     }
 }

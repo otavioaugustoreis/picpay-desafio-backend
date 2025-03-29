@@ -16,7 +16,7 @@ namespace Picpay.CrossCutting.IoC
         {
             //Inicializando o Validator
             services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssemblyContaining<UsuarioModel>();
+            services.AddValidatorsFromAssemblyContaining<UsuarioModelRequest>();
             services.AddValidatorsFromAssemblyContaining<TransferenciaModel>();
 
             return services;
